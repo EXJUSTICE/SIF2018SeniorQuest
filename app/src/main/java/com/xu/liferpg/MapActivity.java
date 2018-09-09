@@ -114,35 +114,7 @@ import static android.R.color.black;
 import static com.xu.liferpg.R.color.black_alpha_40;
 import static com.xu.liferpg.R.color.white;
 
-//TODO 2507 initial map code copied from BombVenture
-//TODO 2907 added in SQLite DB data folder, along with addition and retrieval methods
-//Need to add in navdrawer, tabs and detailed activity launching capability.
-//Incorporate Image Recognition capability
-//https://stackoverflow.com/questions/14746582/how-to-store-the-latlng-variable-in-android-in-an-sql-lite-database-for-use-late
-//TODO 3007 first thing is to get map working and properly reacting to our touches, perhaps with toast.
-//TODO 3007 look into mapview markers with details- launching detailed activiity, like this
-//TODO https://stackoverflow.com/questions/16677929/android-google-map-v2-starting-activity-when-clicking-on-marker-infowindow
-//For the moment, fuck having tabs, simply launching detailActivity will suffice. Dynamic Navigation Drawer is probably better anyhow
 
-//TODO 0208 added nav drawer, opens and enters with marker click, closes with map click -aim to have some kind of expandable listview
-/*Dynamic Navigation Drawers
-https://stackoverflow.com/questions/33284812/android-change-navigation-drawer-menu-items-text-programatically
-https://stackoverflow.com/questions/23399954/android-refresh-item-on-a-navigation-drawer-menu
-https://stackoverflow.com/questions/23982472/how-to-refresh-list-of-the-navigation-drawer-as-soon-as-its-open-closed-in-andro
-https://stackoverflow.com/questions/27152645/drawer-navigation-change-list-of-items-dynamically-after-creation
-https://stackoverflow.com/questions/21985268/android-navigation-drawer-how-to-update-the-counter-value
-https://stackoverflow.com/questions/27947068/how-to-update-already-opened-navigation-drawer
-*/
-
-//TODO navigationView advanced tutorial http://www.technotalkative.com/part-4-playing-with-navigationview/
-//TODO navigationView updating needs to be tested and properly implemented. Also need to consider in navdrawer when clicking marker
-// TODO 0308 Implemented general view vs quest view in navheader
-
-//TODO must implement custom widgets
-//TODO filled out detailActivity, first thing to do in app is to search through and return all quests for population
-//https://stackoverflow.com/questions/32967513/how-to-add-checkbox-to-material-navigation-drawer
-
-//TODO SIF 2018 add button to exhibit also QR capabilities
 
 //TODO For reason we arent inserting to the SQLite database anymore, dunno wtf is wrong. But for mockup simply
 // TODO fill the testHolder with whatever we need.
@@ -580,7 +552,7 @@ public class MapActivity extends AppCompatActivity implements
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
 
-        //TODO 01082017 Removed onMapClickListener and LongClickListener code
+
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -686,15 +658,12 @@ public class MapActivity extends AppCompatActivity implements
     }
 
 
-    //responding to windowclick, TODO add the description show
+    
     @Override
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(this, "Info window clicked",
                 Toast.LENGTH_SHORT).show();
-           /*Intent intent = new Intent(MapActivity.this,DetailActivity.class);
-           String ID = (String) marker.getTag();
-           intent.putString(ID);
-                    startActivity(intent);*/
+     
     }
 
 
@@ -764,17 +733,7 @@ public class MapActivity extends AppCompatActivity implements
         MenuItem itemTitle = menu.findItem(R.id.questHeader);
         itemTitle.setTitle(questDescription);
 
-        /* 2608 old code
-        MenuItem itemOne= menu.findItem(R.id.itemOne);
-        itemOne.setTitle(newobjectives.get(0));
-        MenuItem itemTwo = menu.findItem(R.id.itemTwo);
-        itemTwo.setTitle(newobjectives.get(1));
-        MenuItem itemThree = menu.findItem(R.id.itemThree);
-        itemThree.setTitle(newobjectives.get(2));
-        MenuItem itemFour = menu.findItem(R.id.itemFour);
-        itemThree.setTitle(newobjectives.get(4));
 
-        */
 
         if(newobjectives.size()==0){
             MenuItem itemOne= menu.findItem(R.id.itemOne);
@@ -850,17 +809,15 @@ public class MapActivity extends AppCompatActivity implements
         }
 
     }
-    //TODO 0208 test method to update all of the player stats in the navigation header
-    //https://stackoverflow.com/questions/33999407/how-to-set-text-to-view-from-drawer-header-layout-in-navigation-drawer-without-i
+
     public void updatePlayerStatus(ArrayList<String>newStats){
         View header = navigationView.getHeaderView(0);
         TextView name = (TextView)findViewById(R.id.headerView);
         name.setText("Adrian");
 
-        //TODO add more details to this
+  
 
     }
-    //TODO ugly method for resetting all in navigation drawer
     public void resetDrawer(){
 
         Menu menu = navigationView.getMenu();
@@ -958,8 +915,7 @@ public class MapActivity extends AppCompatActivity implements
 
     }
 
-    //TODO method that checks if user is close to marker, used for arrived boolean
-    //Note this isnt the world's most accurate method, esp at long distances, but it serves its role
+  
     public boolean checkUserArrival(Marker mMarker, Location position){
         boolean arrival;
         Location user= new Location ("user");
@@ -994,7 +950,7 @@ public class MapActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+      
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
@@ -1008,24 +964,7 @@ public class MapActivity extends AppCompatActivity implements
 
 
         if (id == R.id.action_settings) {
-            //TODO For SIF 2018, we now no longer launch dashboard, instead opening friendslist
-            /*
-            //open navigation drawer when you click the home button
-            //This should be a default view, with no quest details but instead the basic information for the app
-            //TODO 17082017 Modified resetDrawer method to return closest quests
-            resetDrawer();
-            toDetails.setEnabled(false);
-            if(mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
-                //drawer is open
-                toDetails.setEnabled(true);
-                mDrawerLayout.closeDrawer(GravityCompat.END);
-            }else{
-                mDrawerLayout.openDrawer(GravityCompat.END);
-            }
-
-            return true;
-            */
-            //TODO launch the FriendFragment
+          
 
             FragmentManager fm = getSupportFragmentManager();
 
@@ -1077,14 +1016,8 @@ public class MapActivity extends AppCompatActivity implements
 
 
 
-    /*TODO i dont think this is necessary, but just in case storage and reading starts lagging
-    public class FetchAllQuests extends AsyncTask<String, Void, Void>{
-        dbHelper = new EmotionListOpenDBHelper(getApplicationContext());
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-    }
-    */
-
-    //TODO 2907 Master read method, fetches all quests with region code
+ 
+//TODO method broken for some reason, used arrayholder instead
     public ArrayList<Quest> FetchAllQuestsFromRegion(String regionID){
         ArrayList<Quest>selectedQuests = new ArrayList<Quest>();
         Quest temp;
@@ -1153,8 +1086,6 @@ public class MapActivity extends AppCompatActivity implements
         return selectedQuests;
     }
 
-    //TODO 05062017 main method that populates map, works with FetchAllQuestsFromRegion
-    //TODO & drawQuestMarker . 10082017 WORKS
 
     public void PopulateMapWithMarkers(ArrayList<Quest> allquests){
         Quest temp;
@@ -1189,9 +1120,6 @@ public class MapActivity extends AppCompatActivity implements
             }
 
 
-        //Try setVisible
-        //https://stackoverflow.com/questions/14507821/is-it-possible-to-show-hide-markers-in-android-google-maps-api-v2
-        //TODO now set allMarkers to invisible and then iterate ones in Selected to Visible
         for (int x=0;x<allMarkers.size();x++){
             allMarkers.get(x).setVisible(false);
         }
@@ -1220,23 +1148,7 @@ public class MapActivity extends AppCompatActivity implements
         nearbyHeader.setTitle(" ");
 
 
-        /*Method below should not be necessary as we have loaded all into selectedQuests,
-                May be useful for detailActivity
-        Cursor cursor = db.query(true,"questlist",new String[]{
-                        QuestListContract.QuestListEntry.COLUMN_ID,
-
-                        QuestListContract.QuestListEntry.COLUMN_NAME,
-                        QuestListContract.QuestListEntry.COLUMN_DETAILS,
-
-                        QuestListContract.QuestListEntry.COLUMN_OBJECTIVES,
-                        },
-                QuestListContract.QuestListEntry.COLUMN_ID + "=?",
-                new String []{questID}, null, null,null,
-                null
-
-        );
-        */
-        //TODO iterate through testHolder, is this faster than SQLite? If number of quests is small at least
+     
         for (int i = 0;i<testHolder.size();i++){
             if(testHolder.get(i).ID.equals(questID)){
                 //10082017 This string works
@@ -1273,9 +1185,7 @@ public class MapActivity extends AppCompatActivity implements
 
     }
 
-    //TODO 12082017 Method for Checking if user is within MarkerDistance, without prox alert
-    //May want to AUGMENT with radius method ---https://stackoverflow.com/questions/22102588/android-google-map-how-to-check-if-user-is-in-marker-circle-region
-
+  
     public void isUserInObjectiveArea(Marker marker, Location currentLocation, String questID){
 
         float[] distance = new float[2];
@@ -1325,8 +1235,7 @@ public class MapActivity extends AppCompatActivity implements
         addQuest("SG-004","TEST 4","This is a test quest","SG",1.298840,103.788782,"Objective1/Objective2/Objective3/Objective4","lightbulb-bulb-light","Is there a lightbulb?-yes-yes","test3","false",2);
 
     }
-    //TODO AddQuest method, check if DB is initialized first!
-    //TODO 08082017 addQuest modified with replace method in case of duplicate
+
     private long addQuest(String ID, String Name, String Description, String Region,
                           Double lat, Double lng,String Object, String key1, String key2,String key3, String completed, int level){
         ContentValues cv = new ContentValues();
@@ -1363,32 +1272,7 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(int type){
 
-        /* OLD TEST FOR QUEST COMPLETION- PASSED
-
-        obj3Completion=true;
-        obj1Completion=true;
-        questEditor.putBoolean(questID+"obj1",obj1Completion);
-        obj2Completion=true;
-        questEditor.putBoolean(questID+"obj3",obj3Completion);
-
-
-        questEditor.putBoolean(questID+"obj2",obj2Completion);
-        questEditor.commit();
-
-        */
-
-        /*21082017 Testing Image recognition component
-        obj1Completion=true;
-        obj3Completion=true;
-        questEditor.putBoolean(questID+"obj3",obj3Completion);
-        questEditor.putBoolean(questID+"obj1",obj1Completion);
-        questEditor.commit();
-        Toast.makeText(MapActivity.this,"QR",Toast.LENGTH_LONG).show();
-        */
-
-
-        //24082017 Restored all methods for final testing
-
+  
         if (type==0){
             Toast.makeText(MapActivity.this,"NAVIGATION",Toast.LENGTH_LONG).show();
             //Navigation check is already done before clicking onMarkerClickListener, hence we just wait for checkCompletion
@@ -1417,7 +1301,6 @@ public class MapActivity extends AppCompatActivity implements
         //checkQuestCompletion should be called pretty much at any stage we do something with a quest
         checkQuestCompletion(questName);
 
-        //SIF2018
 
 
         QuestCompleteFragment comfrag = QuestCompleteFragment.newInstance(questID,questName,totalEXP,250);
@@ -1500,8 +1383,7 @@ public class MapActivity extends AppCompatActivity implements
         Toast.makeText(MapActivity.this, "Player Level is "+playerLevel,Toast.LENGTH_LONG).show();
 
     }
-    //Save all data in Sqlite when quest gets destroyed
-    //Check onQuestCompleteInteraction for corresponding update method
+  
     @Override
     public void onStop(){
         Quest replaceQuest;
@@ -1576,13 +1458,7 @@ public class MapActivity extends AppCompatActivity implements
             }
         }
 
-        /* Dont think iterating through closest quests is necessary, just use as suggestions
-        if (markerHolder.size() != 0 && markerHolder.size() >=2){
-            for (int i=0;i<distanceHolder.size();i++){
-
-            }
-        }
-        */
+      
 
         return markerHolder;
         //TODO remember, the markers are linked to quests through their tags, so we do not need to return a quest arraylist
@@ -1590,7 +1466,7 @@ public class MapActivity extends AppCompatActivity implements
 
 }
 
-//Method to return correct ID from an objective title
+
 
     public String getIDFromTitle(String title, ArrayList<Quest>questHolder){
         String ID ="";
@@ -1610,7 +1486,7 @@ public class MapActivity extends AppCompatActivity implements
     //Continuing from the above, this method takes the returned ID, and returns the correct marker
 
     public Marker getMarkerFromID(String ID, ArrayList<Marker>markerHolder){
-//TODO 19082017 Error was in ID, it's not the marker ID BUT THE TAG!
+
         Marker marker=null;
 
 
@@ -1678,9 +1554,7 @@ public class MapActivity extends AppCompatActivity implements
 
         return isNight;
     }
-    //20082017 Method for showing local city from the Latitude Longitude/location of user
-    //https://stackoverflow.com/questions/2296377/how-to-get-city-name-from-latitude-and-longitude-coordinates-in-google-maps
-
+   
     public static ArrayList<String> getAddress(Context context, double LATITUDE, double LONGITUDE) {
 
         ArrayList<String>locationDetails = new ArrayList();
