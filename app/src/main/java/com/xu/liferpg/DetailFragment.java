@@ -31,7 +31,7 @@ import java.util.ArrayList;
  *https://stackoverflow.com/questions/23122557/create-a-new-dialogfragment-from-another-dialogfragment-instantiated-in-another
  */
 public class DetailFragment extends DialogFragment{
-    // TODO 2408 added QRcode
+ 
 
 
     private String questName;
@@ -232,13 +232,6 @@ public class DetailFragment extends DialogFragment{
         return view;
     }
 
-    /*TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-    */
 
     @Override
     public void onAttach(Context context) {
